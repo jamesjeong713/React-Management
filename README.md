@@ -1,5 +1,5 @@
 ## Management System.
-this project is to make management system following by lecture
+This project is to make management system following by lecture
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
