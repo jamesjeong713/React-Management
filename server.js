@@ -9,5 +9,5 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.get('/api/hello', (req, res)=> {
     res.send({message: 'Hello Express!'});
 });
-
+// listening port
 app.listen (port, () => console.log(`Listening on port ${port}`));
