@@ -20,6 +20,7 @@ class Customer extends React.Component {
     }
 }
 
+// those are components to separate into two types such as profile and info
 // class CustomerProfile extends React.Component {
 //     render() {
 //         return (
