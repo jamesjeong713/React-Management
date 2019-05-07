@@ -39,9 +39,12 @@ class App extends Component {
   componentDidMount() {
     // 0.02초마다 프로그레스 함수가 수행될 수 있도록 해주는 것
     this.timer = setInterval (this.progress, 20);  
-    // this.callApi()
-    //   .then(res => this.setState({customers: res}))
-    //   .catch(err => console.log(err));
+    // if you comment it, you can test progress bar easily
+    // because default customer is empty ("") so that data is getting
+    // the data continuosly. 
+    this.callApi()
+      .then(res => this.setState({customers: res}))
+      .catch(err => console.log(err));
   }
 
   callApi = async() => {
@@ -74,7 +77,7 @@ class App extends Component {
         <TableBody>
         {/* {customers.map(c => { return ( <Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.name} gender={c.gender} job={c.job}/> ); }) } */}
         {this.state.customers ? this.state.customers.map(c => {
-              return ( <Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.name} gender={c.gender} job={c.job}/> );
+              return ( <Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job}/> );
             }) : 
           <TableRow>
             <TableCell colSpan="6" align="center">
