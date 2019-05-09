@@ -2,11 +2,7 @@
     "name": "management",
     "version": "1.0.0",
     "scripts": {
-<<<<<<< HEAD
         "client": "cd .. && yarn start",
-=======
-        "client": "cd client && yarn start",
->>>>>>> 34a59417502a5de26b5c87e08e7926e79b757349
         "server": "nodemon server.js",
         "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
     },
