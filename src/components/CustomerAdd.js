@@ -26,6 +26,9 @@ class CustomerAdd extends React.Component {
         this.addCustomer()
             .then((response) => {
                 console.log(response.data);
+                // 고객을 추가한 이후에 서버로부터 응답을 받고,
+                // 고객을 불러올 필요가 있음. 
+                this.props.stateRefresh();
             })
         // for test to post data to server
         this.setState({
@@ -36,7 +39,6 @@ class CustomerAdd extends React.Component {
             job: '',
             fileName: ''
         })
-        window.location.reload();
     }
     // in html, to make function of handldeFileChange and handleValueChange
     handleFileChange = (e) => {

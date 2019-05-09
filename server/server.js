@@ -32,7 +32,8 @@ const upload = multer({dest: './upload' });
 app.get('/api/customers', (req, res) => {
     // res.send();
     connection.query(
-      "SELECT * FROM CUSTOMER",
+      // bring data which isDeleted is only 0 (not deleted)
+      "SELECT * FROM CUSTOMER WHERE isDeleted = 0",
       (err,rows,fields) => {
           res.send(rows);
       }
@@ -43,7 +44,9 @@ app.use('/image', express.static('./upload'));
 // basically, it gets binary data type from server by 'image' variable -> upload.single('image') 
 // it gets together with filename;
 app.post('/api/customers', upload.single('image'), (req,res) => {
-  let sql = 'INSERT INTO CUSTOMER VALUES (null, ?, ?, ?, ?, ?)';
+  // 맨 처음에는 삭제가 되지 않는 상태여야 불러올 수 있음. 따라서 0
+  // 쿼리가 만들어질 때, 현재 time을 넣어줘야 함. now()
+  let sql = 'INSERT INTO CUSTOMER VALUES (null, ?, ?, ?, ?, ?, now(), 0)';
   let image = '/image/' + req.file.filename;
   let name = req.body.name;
   let birthday = req.body.birthday;
@@ -65,7 +68,15 @@ app.post('/api/customers', upload.single('image'), (req,res) => {
         console.log("error: ", err, "\nrows: ", rows);
     })
 });
-
+app.delete('/api/customers/:id', (req, res)=> {
+  let sql = 'UPDATE CUSTOMER SET isDeleted = 1 WHERE id = ?';
+  // among the paramater, select id 
+  let params = [req.params.id];
+  connection.query(sql, params, (err,rows, fields) => {
+    // 쿼리가 실행되는 중에, 클라이언트 측으로 보내주면 됨.
+    res.send(rows);
+  })
+})
 // listening port
 app.listen (port, () => console.log(`Listening on port ${port}`));
  
